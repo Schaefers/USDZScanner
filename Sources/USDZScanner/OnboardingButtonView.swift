@@ -31,10 +31,10 @@ struct OnboardingButtonView: View {
             VStack(spacing: 0) {
                 let currentStateInputs = onboardingStateMachine.currentStateInputs()
                 if currentStateInputs.contains(where: { $0 == .continue(isFlippable: false) || $0 == .continue(isFlippable: true) }) {
-                    CreateButton(buttonLabel: LocalizedString.continue,
+                    CreateButton(buttonLabel: LocalizedString.finish,
                                  buttonLabelColor: .white,
                                  shouldApplyBackground: true,
-                                 action: { transition(with: .continue(isFlippable: appModel.isObjectFlippable)) }
+                                 action: { transition(with: .finish) }
                     )
                 }
                 if currentStateInputs.contains(where: { $0 == .flipObjectAnyway }) {
