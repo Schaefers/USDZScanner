@@ -170,7 +170,10 @@ class AppDataModel: ObservableObject, Identifiable {
     private func startNewCapture() -> Bool {
         logger.log("startNewCapture() called...")
         if !ObjectCaptureSession.isSupported {
-            preconditionFailure("ObjectCaptureSession is not supported on this device!")
+            //preconditionFailure("ObjectCaptureSession is not supported on this device!")
+            // App will Show a POP-Up and Progress View instead of Crashing
+            showLiDARNotAvailableAlert()
+            return false
         }
 
         guard let folderManager = CaptureFolderManager() else {
@@ -219,6 +222,7 @@ class AppDataModel: ObservableObject, Identifiable {
         logger.debug("startReconstruction() called.")
 
         var configuration = PhotogrammetrySession.Configuration()
+        configuration.featureSensitivity = .high
         configuration.checkpointDirectory = scanFolderManager.snapshotsFolder
         photogrammetrySession = try PhotogrammetrySession(
             input: scanFolderManager.imagesFolder,
@@ -237,6 +241,25 @@ class AppDataModel: ObservableObject, Identifiable {
         orbitState = .initial
         isObjectFlipped = false
         state = .ready
+    }
+    
+    private func showLiDARNotAvailableAlert() {
+        let alertController = UIAlertController(
+            title: "LiDAR Not Available",
+            message: "ObjectCaptureSession is not supported on this device.",
+            preferredStyle: .alert
+        )
+        
+        alertController.addAction(UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: nil
+        ))
+        
+        // Present the alert
+        if let viewController = UIApplication.shared.keyWindow?.rootViewController {
+            viewController.present(alertController, animated: true, completion: nil)
+        }
     }
 
     private func onStateChanged(newState: ObjectCaptureSession.CaptureState) {
