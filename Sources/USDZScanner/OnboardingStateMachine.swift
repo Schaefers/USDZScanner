@@ -72,9 +72,7 @@ class OnboardingStateMachine: ObservableObject {
     private let transitions: [OnboardingState: [Transition]] = [
         .tooFewImages: [(inputs: [.continue(isFlippable: true), .continue(isFlippable: false)], destination: .firstSegment)],
 
-        .firstSegmentNeedsWork: [(inputs: [.continue(isFlippable: true), .continue(isFlippable: false)], destination: .firstSegment),
-                                 (inputs: [.skip(isFlippable: true), .skip(isFlippable: false)], destination: .flipObject),
-                                 (inputs: [.finish], destination: .reconstruction)],
+        .firstSegmentNeedsWork: [(inputs: [.finish], destination: .reconstruction)],
 
         .firstSegmentComplete: [(inputs: [.finish], destination: .reconstruction),
                                 (inputs: [.continue(isFlippable: true)], destination: .flipObject),
