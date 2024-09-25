@@ -12,6 +12,9 @@ import os
 @available(iOS 17.0, *)
 /// The root of the SwiftUI view graph.
 public struct USDZScanner: View {
+    
+    @Environment(\.dismiss) var dismiss
+    
     static let logger = Logger(subsystem: GuidedCaptureSampleApp.subsystem,
                                 category: "ContentView")
     
@@ -49,7 +52,10 @@ public struct USDZScanner: View {
         }
         .sheet(isPresented: $showReconstructionView) {
             if let folderManager = appModel.scanFolderManager {
-                ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"), onCompletedCallback: onCompletedCallback)
+                ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"), onCompletedCallback: {
+                    onCompletedCallback()
+                    dismiss()
+                })
             }
         }
         .alert(
