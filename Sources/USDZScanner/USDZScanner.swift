@@ -52,8 +52,8 @@ public struct USDZScanner: View {
         }
         .sheet(isPresented: $showReconstructionView) {
             if let folderManager = appModel.scanFolderManager {
-                ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"), onCompletedCallback: {
-                    onCompletedCallback()
+                ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"), onCompletedCallback: { url in
+                    onCompletedCallback(url)
                     dismiss()
                 })
             }
