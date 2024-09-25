@@ -13,7 +13,6 @@ import os
 @available(iOS 17.0, *)
 struct ReconstructionPrimaryView: View {
     @EnvironmentObject var appModel: AppDataModel
-    @Environment(\.dismiss) var dismiss
     let outputFile: URL
     let onCompletedCallback: (URL) -> Void
 
@@ -25,7 +24,6 @@ struct ReconstructionPrimaryView: View {
             ModelView(modelFile: outputFile, endCaptureCallback: { [weak appModel] in
                 appModel?.endCapture()
                 onCompletedCallback(outputFile)
-                dismiss()
             })
         } else {
             ReconstructionProgressView(outputFile: outputFile,
