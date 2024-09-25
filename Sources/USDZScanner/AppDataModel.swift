@@ -250,6 +250,17 @@ class AppDataModel: ObservableObject, Identifiable {
         state = .ready
     }
     
+    private func teardown() {
+        logger.info("teardown() called...")
+        photogrammetrySession = nil
+        objectCaptureSession = nil
+        scanFolderManager = nil
+        showPreviewModel = false
+        orbit = .orbit1
+        orbitState = .initial
+        isObjectFlipped = false
+    }
+    
     private func showLiDARNotAvailableAlert() {
         let alertController = UIAlertController(
             title: "LiDAR Not Available",
@@ -329,8 +340,10 @@ class AppDataModel: ObservableObject, Identifiable {
                 } catch {
                     logger.error("Reconstructing failed!")
                 }
-            case .restart, .completed:
+            case .restart:
                 reset()
+            case .completed:
+                teardown()
             case .viewing:
                 photogrammetrySession = nil
 
