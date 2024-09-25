@@ -9,6 +9,7 @@ import Combine
 import RealityKit
 import SwiftUI
 import os
+import AVFoundation
 
 @MainActor
 @available(iOS 17.0, *)
