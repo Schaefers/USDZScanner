@@ -220,6 +220,21 @@ extension CaptureOverlayView {
             })
         }
     }
+    
+    @available(iOS 17.0, *)
+    struct FlashlightButton: View {
+        @EnvironmentObject var appModel: AppDataModel
+
+        var body: some View {
+            Button(action: {
+                logger.log("\(LocalizedString.cancel) button clicked!")
+                appModel.isFlashlightOn.toggle()
+            }, label: {
+                Image(systemName: "flashlight.on.fill")
+                    .modifier(VisualEffectRoundedCorner())
+            })
+        }
+    }
 
     @available(iOS 17.0, *)
     struct NumOfImagesButton: View {

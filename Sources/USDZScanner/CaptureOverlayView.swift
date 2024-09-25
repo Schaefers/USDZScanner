@@ -30,6 +30,8 @@ struct CaptureOverlayView: View {
                     .opacity(!shouldShowTutorial ? 1 : 0)
                     .disabled(shouldDisableCancelButton ? true : false)
                 Spacer()
+                FlashlightButton()
+                    .opacity(!shouldShowTutorial ? 1 : 0)
                 NextButton()
                     .opacity(shouldShowNextButton ? 1 : 0)
                     .disabled(!shouldShowNextButton)

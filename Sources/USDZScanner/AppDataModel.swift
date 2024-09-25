@@ -84,6 +84,12 @@ class AppDataModel: ObservableObject, Identifiable {
     /// Alternatively, hiding the ``CapturePrimaryView`` pauses the
     /// ``objectCaptureSession``.
     @Published private(set) var showPreviewModel = false
+    
+    @Published var isFlashlightOn: Bool = false {
+        didSet {
+            toggleTorch(isFlashlightOn)
+        }
+    }
 
     private init(objectCaptureSession: ObjectCaptureSession) {
         self.objectCaptureSession = objectCaptureSession
@@ -356,6 +362,24 @@ class AppDataModel: ObservableObject, Identifiable {
             }
         }
         return currentState
+    }
+    
+    private func toggleTorch(_ isOn: Bool) {
+        guard let device = AVCaptureDevice.default(for: .video), device.hasTorch else { return }
+        
+        do {
+            try device.lockForConfiguration()
+            
+            device.torchMode = isOn ? .on : .off
+            
+            if isOn {
+                try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel)
+            }
+            
+            device.unlockForConfiguration()
+        } catch {
+            print("Error: \(error)")
+        }
     }
 
 }
