@@ -54,6 +54,8 @@ public struct USDZScanner: View {
             if let folderManager = appModel.scanFolderManager {
                 ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"), onCompletedCallback: { url in
                     onCompletedCallback(url)
+                    appModel.photogrammetrySession = nil
+                    appModel.objectCaptureSession = nil
                     dismiss()
                 })
             }
