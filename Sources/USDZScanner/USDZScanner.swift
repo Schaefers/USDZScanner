@@ -39,6 +39,7 @@ public struct USDZScanner: View {
                 }
             } else if showProgressView {
                 CircularProgressView()
+                appModel.state = .restart
             }
         }
         .onChange(of: appModel.state) { _, newState in
