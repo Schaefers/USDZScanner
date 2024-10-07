@@ -38,8 +38,9 @@ public struct USDZScanner: View {
                     CapturePrimaryView(session: session)
                 }
             } else if showProgressView {
-                CircularProgressView()
-                appModel.state = .restart
+                CircularProgressView().onAppear(perform: {
+                    appModel.state = .restart
+                })
             }
         }
         .onChange(of: appModel.state) { _, newState in
