@@ -70,10 +70,11 @@ public struct USDZScanner: View {
             message: {}
         )
         .environmentObject(appModel)
-    }
-    
-    public func restartCaptureModel() {
-        appModel.state = .restart
+        .onAppear {
+            if appModel.state == .completed {
+                appModel.state = .restart
+            }
+        }
     }
 }
 

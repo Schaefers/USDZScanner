@@ -108,7 +108,7 @@ extension CaptureOverlayView {
         var body: some View {
             Button(action: {
                 appModel.endCapture()
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(3000), execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
                     dismiss()
                 })
             }, label: {
