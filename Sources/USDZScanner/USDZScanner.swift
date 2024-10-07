@@ -38,9 +38,7 @@ public struct USDZScanner: View {
                     CapturePrimaryView(session: session)
                 }
             } else if showProgressView {
-                CircularProgressView().onAppear(perform: {
-                    appModel.state = .restart
-                })
+                CircularProgressView()
             }
         }
         .onChange(of: appModel.state) { _, newState in
@@ -72,6 +70,10 @@ public struct USDZScanner: View {
             message: {}
         )
         .environmentObject(appModel)
+    }
+    
+    public func restartCaptureModel() {
+        appModel.state = .restart
     }
 }
 
