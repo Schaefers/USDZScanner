@@ -252,7 +252,9 @@ class AppDataModel: ObservableObject, Identifiable {
     
     private func teardown() {
         logger.info("teardown() called...")
+        photogrammetrySession?.cancel()
         photogrammetrySession = nil
+        objectCaptureSession?.cancel()
         objectCaptureSession = nil
         scanFolderManager = nil
         showPreviewModel = false
