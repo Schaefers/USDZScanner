@@ -102,10 +102,12 @@ extension CaptureOverlayView {
     
     @available(iOS 17.0, *)
     struct CloseButton: View {
+        @EnvironmentObject var appModel: AppDataModel
         @Environment(\.dismiss) var dismiss
 
         var body: some View {
             Button(action: {
+                appModel.state = .completed
                 dismiss()
             }, label: {
                 Image(systemName: "xmark")
