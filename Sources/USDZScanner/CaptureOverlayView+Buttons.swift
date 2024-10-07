@@ -107,8 +107,10 @@ extension CaptureOverlayView {
 
         var body: some View {
             Button(action: {
-                appModel.state = .completed
-                dismiss()
+                appModel.endCapture()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
+                    dismiss()
+                })
             }, label: {
                 Image(systemName: "xmark")
                     .modifier(VisualEffectRoundedCorner())
