@@ -54,8 +54,8 @@ struct OnboardingButtonView: View {
                 }
                 if currentStateInputs.contains(where: { $0 == .finish }) {
                     CreateButton(buttonLabel: LocalizedString.finish,
-                                 buttonLabelColor: onboardingStateMachine.currentState == .thirdSegmentComplete ? .white : .blue,
-                                 shouldApplyBackground: onboardingStateMachine.currentState == .thirdSegmentComplete,
+                                 buttonLabelColor: onboardingStateMachine.currentState != .thirdSegmentComplete ? .white : .blue,
+                                 shouldApplyBackground: onboardingStateMachine.currentState != .thirdSegmentComplete,
                                  showBusyIndicator: session.state == .finishing,
                                  action: { [weak session] in session?.finish() })
                 }
